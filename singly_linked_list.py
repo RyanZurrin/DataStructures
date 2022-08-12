@@ -1,9 +1,9 @@
 # class to represent a singly linked list
 
 class Node:
-    def __init__(self, data=None, nxt=None):
+    def __init__(self, data=None, next_=None):
         self.data = data
-        self.next = nxt
+        self.next = next_
 
 
 class SinglyLinkedList:
