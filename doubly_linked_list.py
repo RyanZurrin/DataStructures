@@ -124,3 +124,22 @@ class DoublyLinkedList:
             current.next = new_node
             new_node.prev = current
         self.size += 1
+
+    def remove(self, data):
+        if self.head.data == data:
+            self.head = self.head.next
+            self.size -= 1
+            return
+        current = self.head
+        while current.next:
+            if current.next.data == data:
+                current.next = current.next.next
+                self.size -= 1
+                return
+            current = current.next
+        raise ValueError('Data not found')
+
+    def clear(self):
+        self.head = None
+        self.tail = None
+        self.size = 0
