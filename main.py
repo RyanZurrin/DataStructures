@@ -1,14 +1,12 @@
-import priority_queue as pq
+import hash_table as ht
 
-p = pq.PriorityQueue()
-p.enqueue("Cat", 13)
-p.enqueue("Bat", 2)
-p.enqueue("Rat", 1)
-p.enqueue("Ant", 26)
-p.enqueue("Lion", 25)
-
-p.print_queue()
-val = p.dequeue()
-print(val)
-p.print_queue()
+ht = ht.HashTableChaining()
+ht.put("A", "Apple")
+ht.put("good", "eggs")
+ht.put("better", "ham")
+ht.put("best", "spam")
+ht.put("ad", "do not")
+ht.put("ga", "collide")
+ht.put("awd", "do not")
+ht.print_table()
 
