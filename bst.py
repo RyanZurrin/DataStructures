@@ -2,7 +2,7 @@
 import queue
 
 
-class Node:
+class TreeNode:
     def __init__(self, data=None, left=None, right=None):
         self.data = data
         self.left = left
@@ -48,7 +48,7 @@ class BST:
         if self.root:
             self._put(data, self.root)
         else:
-            self.root = Node(data)
+            self.root = TreeNode(data)
         self.size += 1
 
     def _put(self, data, current_node):
@@ -56,12 +56,12 @@ class BST:
             if current_node.left:
                 self._put(data, current_node.left)
             else:
-                current_node.left = Node(data)
+                current_node.left = TreeNode(data)
         else:
             if current_node.right:
                 self._put(data, current_node.right)
             else:
-                current_node.right = Node(data)
+                current_node.right = TreeNode(data)
 
     def get(self, data):
         if self.root:
@@ -137,6 +137,25 @@ class BST:
         else:
             return current_node.right
 
+    def get_max(self):
+        return self._get_max(self.root)
+
+    def _get_max(self, current_node):
+        if current_node.right:
+            return self._get_max(current_node.right)
+        else:
+            return current_node
+
+    def remove_max(self):
+        return self._remove_max(self.root)
+
+    def _remove_max(self, current_node):
+        if current_node.right:
+            current_node.right = self._remove_max(current_node.right)
+        else:
+            return current_node.left
+        return current_node
+
     def preorder(self):
         self._preorder(self.root)
 
@@ -202,6 +221,18 @@ class BST:
         else:
             left_height = self._height(current_node.left)
             right_height = self._height(current_node.right)
-            return abs(left_height - right_height) <= 1 and self._is_balanced(current_node.left) and self._is_balanced(current_node.right)
+            return abs(left_height - right_height) <= 1 and self._is_balanced(
+                current_node.left) and self._is_balanced(current_node.right)
 
+    def search(self, data):
+        return self._search(data, self.root)
 
+    def _search(self, data, current_node):
+        if current_node is None:
+            return False
+        elif current_node.data == data:
+            return True
+        elif data < current_node.data:
+            return self._search(data, current_node.left)
+        else:
+            return self._search(data, current_node.right)
