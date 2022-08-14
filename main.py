@@ -1,43 +1,38 @@
-import graph
+import random
 
-g = graph.Graph(13, directed=True, weighted=True)
+import sorting
 
-g.add_edge(0, 1, 4)
-g.add_edge(0, 2, 3)
-g.add_edge(1, 2, 1)
-g.add_edge(1, 3, 2)
-g.add_edge(2, 0, 6)
-g.add_edge(2, 3, 2)
-g.add_edge(3, 8, 1)
-g.add_edge(3, 3, 3)
-g.add_edge(3, 4, 9)
-g.add_edge(4, 3, 3)
-g.add_edge(4, 5, 1)
-g.add_edge(5, 6, 2)
-g.add_edge(6, 7, 1)
-g.add_edge(7, 8, 8)
-g.add_edge(8, 9, 2)
-g.add_edge(9, 10, 11)
-g.add_edge(10, 11, 1)
-g.add_edge(11, 12, 1)
-g.add_edge(12, 9, 1)
-g.add_edge(12, 10, 1)
-g.add_edge(12, 11, 12)
-g.add_edge(12, 12, 1)
+# create an unsorted array of 40 random numbers between 1 and 100
+arr = [random.randint(1, 100) for i in range(40)]
+# print the unsorted array
+print("Unsorted Array:", arr)
 
-g.print_graph()
-g.print_adj_matrix()
+# sort the array using the bubble sort algorithm
+sorted_arr = sorting.bubble_sort(arr.copy())
+# print the unsorted array
+print("Unsorted Array:", arr)
+# print the sorted array
+print("bubble_sort:", sorted_arr)
+# print the unsorted array
+print("Unsorted Array:", arr)
+sorted_arr = sorting.selection_sort(arr.copy())
+print("selection_sort:", sorted_arr)
+# print the unsorted array
+print("Unsorted Array:", arr)
+sorted_arr = sorting.insertion_sort(arr.copy())
+print("insertion_sort:", sorted_arr)
+# print the unsorted array
+print("Unsorted Array:", arr)
+sorted_arr = sorting.merge_sort(arr.copy())
+print("merge_sort:", sorted_arr)
+# print the unsorted array
+print("Unsorted Array:", arr)
+sorted_arr = sorting.quick_sort(arr.copy(), 0, len(arr) - 1)
+print("quick_sort:", sorted_arr)
+# print the unsorted array
+print("Unsorted Array:", arr)
+sorted_arr = sorting.tim_sort(arr.copy(), 4)
+print("tim_sort:", sorted_arr)
 
-print(g.shortest_path(0, 12))
-print(g.is_connected())
-print(g.is_bipartite())
 
-g.bfs(0)
-
-print()
-
-g.dfs(0)
-
-print()
-distances = g.dijkstra(2)
 
