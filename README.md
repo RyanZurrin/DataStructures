@@ -11,6 +11,7 @@
 9. [Min Heap](#min-heap)
 10. [Priority Queue](#priority-queue)
 11. [Hash Table](#hash-table)
+12. [Graph](#graph)
 
 
 
