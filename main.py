@@ -8,7 +8,7 @@ g.add_edge(1, 2, 1)
 g.add_edge(1, 3, 2)
 g.add_edge(2, 0, 6)
 g.add_edge(2, 3, 2)
-g.add_edge(3, 4, 1)
+g.add_edge(3, 8, 1)
 g.add_edge(3, 3, 3)
 g.add_edge(3, 4, 9)
 g.add_edge(4, 3, 3)
@@ -31,3 +31,13 @@ g.print_adj_matrix()
 print(g.shortest_path(0, 12))
 print(g.is_connected())
 print(g.is_bipartite())
+
+g.bfs(0)
+
+print()
+
+g.dfs(0)
+
+print()
+distances = g.dijkstra(2)
+

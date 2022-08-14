@@ -51,8 +51,7 @@ class Graph:
 
     def bfs(self, s):
         visited = [False] * self.V
-        queue = []
-        queue.append(s)
+        queue = [s]
         visited[s] = True
         while queue:
             s = queue.pop(0)
@@ -67,17 +66,16 @@ class Graph:
     def dfs(self, s):
         visited = [False] * self.V
         self._dfs_util(s, visited)
-        for i in range(self.V):
-            if not visited[i]:
-                self._dfs_util(i, visited)
 
     def _dfs_util(self, s, visited):
+        """print in DFS order"""
         visited[s] = True
         temp = self.graph[s]
         while temp:
             if not visited[temp.data]:
                 self._dfs_util(temp.data, visited)
             temp = temp.next
+        print(s, end=" ")
 
     def topological_sort(self):
         visited = [False] * self.V
@@ -174,6 +172,11 @@ class Graph:
                         dist[temp.data] = dist[u] + temp.weight
                         heapq.heappush(pq, (dist[temp.data], temp.data))
                 temp = temp.next
+        # print the distances from source to all other vertices
+        print("Vertex\t Distance from vertex {}".format(s))
+        for i in range(self.V):
+            print("{}\t\t->\t\t{}".format(i, dist[i]))
+
         return dist
 
     def bellman_ford(self, s):
@@ -254,12 +257,11 @@ class Graph:
         temp = self.graph[s]
         while temp:
             if not visited2[temp.data]:
-                if not self._is_isomorphic_util(temp.data, visited1, visited2, g):
+                if not self._is_isomorphic_util(temp.data, visited1, visited2,
+                                                g):
                     return False
             else:
                 if g.graph[temp.data].data != temp.data:
                     return False
             temp = temp.next
         return True
-
-
