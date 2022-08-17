@@ -1,38 +1,19 @@
-import random
+import string_matching
+# import library to time the execution time of the algorithm
+import timeit
 
-import sorting
+# test the time taken by the algorithm
+def test_time(algorithm, text, pattern):
+    print(algorithm.__name__, timeit.timeit(lambda: algorithm(text, pattern), number=1000))
 
-# create an unsorted array of 40 random numbers between 1 and 100
-arr = [random.randint(1, 100) for i in range(40)]
-# print the unsorted array
-print("Unsorted Array:", arr)
-
-# sort the array using the bubble sort algorithm
-sorted_arr = sorting.bubble_sort(arr.copy())
-# print the unsorted array
-print("Unsorted Array:", arr)
-# print the sorted array
-print("bubble_sort:", sorted_arr)
-# print the unsorted array
-print("Unsorted Array:", arr)
-sorted_arr = sorting.selection_sort(arr.copy())
-print("selection_sort:", sorted_arr)
-# print the unsorted array
-print("Unsorted Array:", arr)
-sorted_arr = sorting.insertion_sort(arr.copy())
-print("insertion_sort:", sorted_arr)
-# print the unsorted array
-print("Unsorted Array:", arr)
-sorted_arr = sorting.merge_sort(arr.copy())
-print("merge_sort:", sorted_arr)
-# print the unsorted array
-print("Unsorted Array:", arr)
-sorted_arr = sorting.quick_sort(arr.copy(), 0, len(arr) - 1)
-print("quick_sort:", sorted_arr)
-# print the unsorted array
-print("Unsorted Array:", arr)
-sorted_arr = sorting.tim_sort(arr.copy(), 4)
-print("tim_sort:", sorted_arr)
+# test the algorithm on the given text and pattern
+print(string_matching.brute_force('acbcabccababcaacbcac', 'acbcac'))
+test_time(string_matching.brute_force, 'acbcabccababcaacbcac', 'acbcac')
 
 
+print(string_matching.rabin_karp('acbcabccababcaacbcac', 'acbcac'))
+test_time(string_matching.rabin_karp, 'acbcabccababcaacbcac', 'acbcac')
 
+
+print(string_matching.knuth_morris_pratt('acbcabccababcaacbcac', 'acbcac'))
+test_time(string_matching.knuth_morris_pratt, 'acbcabccababcaacbcac', 'acbcac')
