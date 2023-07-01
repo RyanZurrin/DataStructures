@@ -16,20 +16,14 @@ for term in expr:
 
 
 def calc(node):
-    if node.left:
-        left = calc(node.left)
-    else:
-        left = 0
-    if node.right:
-        right = calc(node.right)
-    else:
-        right = 0
-    if node.data == "+":
+    left = calc(node.left) if node.left else 0
+    right = calc(node.right) if node.right else 0
+    if node.data == "*":
+        return left * right
+    elif node.data == "+":
         return left + right
     elif node.data == "-":
         return left - right
-    elif node.data == "*":
-        return left * right
     elif node.data == "/":
         return left / right
     else:

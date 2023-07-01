@@ -38,10 +38,7 @@ class MinHeap:
         if k * 2 + 1 > self.size:
             return k * 2
         else:
-            if self.heap[k * 2] < self.heap[k * 2 + 1]:
-                return k * 2
-            else:
-                return k * 2 + 1
+            return k * 2 if self.heap[k * 2] < self.heap[k * 2 + 1] else k * 2 + 1
 
     def sink(self, k):
         while k * 2 <= self.size:
@@ -72,7 +69,7 @@ class MinHeap:
 
     def heap_sort(self):
         sorted_list = []
-        for node in range(self.size):
+        for _ in range(self.size):
             n = self.delete_root()
             sorted_list.append(n)
 

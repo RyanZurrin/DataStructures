@@ -17,18 +17,12 @@ def linear_search(arr, target, ordered=False):
     int
         index of the target, if found, otherwise None
     """
-    if ordered:
-        for i in range(len(arr)):
-            if arr[i] > target:
-                return None
-            elif arr[i] == target:
-                return i
-        return None
-    else:
-        for i in range(len(arr)):
-            if arr[i] == target:
-                return i
-        return None
+    for i in range(len(arr)):
+        if ordered and arr[i] > target:
+            return None
+        elif ordered and arr[i] == target or not ordered and arr[i] == target:
+            return i
+    return None
 
 
 def jump_search(ordered_list, target):
@@ -111,6 +105,4 @@ def interpolation_search(ordered_list, target):
             low_index = mid_point + 1
         else:
             upper_index = mid_point - 1
-    if low_index > upper_index:
-        return None
     return None

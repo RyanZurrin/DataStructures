@@ -13,7 +13,7 @@ def bubble_sort(arr):
     list
         The sorted array.
     """
-    for i in range(len(arr)):
+    for _ in range(len(arr)):
         for j in range(len(arr) - 1):
             if arr[j] > arr[j + 1]:
                 arr[j], arr[j + 1] = arr[j + 1], arr[j]
@@ -102,7 +102,7 @@ def merge_sort(arr):
 def partition(arr, low, high):
     pivot = arr[high]
     i = low
-    for j in range(low, high):
+    for j in range(i, high):
         if arr[j] < pivot:
             arr[i], arr[j] = arr[j], arr[i]
             i += 1

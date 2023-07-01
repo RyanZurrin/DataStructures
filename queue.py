@@ -17,27 +17,22 @@ class Queue:
         new_node = Node(data)
         if self.head is None:
             self.head = new_node
-            self.tail = new_node
         else:
             self.tail.next = new_node
             new_node.prev = self.tail
-            self.tail = new_node
+        self.tail = new_node
         self.size += 1
 
     def dequeue(self):
         if self.size == 0:
             return None
-        else:
-            data = self.head.data
-            self.head = self.head.next
-            self.size -= 1
-            return data
+        data = self.head.data
+        self.head = self.head.next
+        self.size -= 1
+        return data
 
     def peek(self):
-        if self.size == 0:
-            return None
-        else:
-            return self.head.data
+        return None if self.size == 0 else self.head.data
 
     def is_empty(self):
         return self.size == 0
