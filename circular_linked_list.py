@@ -16,15 +16,14 @@ class CircularLinkedList:
     def __str__(self):
         if self.size == 0:
             return 'Empty'
-        else:
-            current = self.head
-            string = ''
-            while current:
-                string += str(current.data) + ' '
-                current = current.next
-                if current == self.head:
-                    break
-            return string
+        current = self.head
+        string = ''
+        while current:
+            string += f'{str(current.data)} '
+            current = current.next
+            if current == self.head:
+                break
+        return string
 
     def __len__(self):
         return self.size
@@ -35,10 +34,9 @@ class CircularLinkedList:
     def __next__(self):
         if self.head is None:
             raise StopIteration
-        else:
-            current = self.head
-            self.head = self.head.next
-            return current.data
+        current = self.head
+        self.head = self.head.next
+        return current.data
 
     def __contains__(self, data):
         current = self.head
@@ -54,7 +52,7 @@ class CircularLinkedList:
         if index >= self.size:
             raise IndexError('Index out of range')
         current = self.head
-        for i in range(index):
+        for _ in range(index):
             current = current.next
             if current == self.head:
                 break
@@ -64,7 +62,7 @@ class CircularLinkedList:
         if index >= self.size:
             raise IndexError('Index out of range')
         current = self.head
-        for i in range(index):
+        for _ in range(index):
             current = current.next
             if current == self.head:
                 break
@@ -77,7 +75,7 @@ class CircularLinkedList:
             self.head = self.head.next
         else:
             current = self.head
-            for i in range(index):
+            for _ in range(index):
                 current = current.next
                 if current == self.head:
                     break
@@ -91,8 +89,6 @@ class CircularLinkedList:
             self.tail = self.tail.prev
             self.tail.next = self.head
             self.head.prev = self.tail
-        else:
-            pass
 
     def append(self, data):
         new_node = Node(data)
@@ -118,7 +114,7 @@ class CircularLinkedList:
             self.head = new_node
         else:
             current = self.head
-            for i in range(index - 1):
+            for _ in range(index - 1):
                 current = current.next
                 if current == self.head:
                     break

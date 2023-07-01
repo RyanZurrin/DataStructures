@@ -2,12 +2,14 @@
 
 # brute force algorithm
 def brute_force(text, pattern):
-    # loop through all the possible starting points in the text
-    for i in range(len(text) - len(pattern) + 1):
-        # check if the current substring in the text is the same as the pattern
-        if text[i:i + len(pattern)] == pattern:
-            return i
-    return -1
+    return next(
+        (
+            i
+            for i in range(len(text) - len(pattern) + 1)
+            if text[i : i + len(pattern)] == pattern
+        ),
+        -1,
+    )
 
 
 # rabin karp algorithm

@@ -25,19 +25,14 @@ class BT:
                 self._put(data, current_node.left)
             else:
                 current_node.left = TreeNode(data)
+        elif current_node.right:
+            self._put(data, current_node.right)
         else:
-            if current_node.right:
-                self._put(data, current_node.right)
-            else:
-                current_node.right = TreeNode(data)
+            current_node.right = TreeNode(data)
 
     def get(self, data):
         if self.root:
-            res = self._get(data, self.root)
-            if res:
-                return res
-            else:
-                return None
+            return res if (res := self._get(data, self.root)) else None
         else:
             return None
 
@@ -45,15 +40,9 @@ class BT:
         if data == current_node.data:
             return current_node
         elif data < current_node.data:
-            if current_node.left:
-                return self._get(data, current_node.left)
-            else:
-                return None
+            return self._get(data, current_node.left) if current_node.left else None
         else:
-            if current_node.right:
-                return self._get(data, current_node.right)
-            else:
-                return None
+            return self._get(data, current_node.right) if current_node.right else None
 
     def delete(self, data):
         if self.root:
@@ -70,16 +59,15 @@ class BT:
                 current_node.right = self._delete(data, current_node.right)
             else:
                 return None
+        elif current_node.left and current_node.right:
+            current_node.data = self.get_min(current_node.right)
+            current_node.right = self._delete(current_node.data, current_node.right)
+        elif current_node.left:
+            return current_node.left
+        elif current_node.right:
+            return current_node.right
         else:
-            if current_node.left and current_node.right:
-                current_node.data = self.get_min(current_node.right)
-                current_node.right = self._delete(current_node.data, current_node.right)
-            elif current_node.left:
-                return current_node.left
-            elif current_node.right:
-                return current_node.right
-            else:
-                return None
+            return None
         return current_node
 
     # traversals

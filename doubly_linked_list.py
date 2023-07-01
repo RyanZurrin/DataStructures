@@ -16,13 +16,12 @@ class DoublyLinkedList:
     def __str__(self):
         if self.size == 0:
             return 'Empty'
-        else:
-            current = self.head
-            string = ''
-            while current:
-                string += str(current.data) + ' '
-                current = current.next
-            return string
+        current = self.head
+        string = ''
+        while current:
+            string += f'{str(current.data)} '
+            current = current.next
+        return string
 
     def __len__(self):
         return self.size
@@ -33,10 +32,9 @@ class DoublyLinkedList:
     def __next__(self):
         if self.head is None:
             raise StopIteration
-        else:
-            current = self.head
-            self.head = self.head.next
-            return current.data
+        current = self.head
+        self.head = self.head.next
+        return current.data
 
     def __contains__(self, data):
         current = self.head
@@ -50,7 +48,7 @@ class DoublyLinkedList:
         if index >= self.size:
             raise IndexError('Index out of range')
         current = self.head
-        for i in range(index):
+        for _ in range(index):
             current = current.next
         return current.data
 
@@ -58,7 +56,7 @@ class DoublyLinkedList:
         if index >= self.size:
             raise IndexError('Index out of range')
         current = self.head
-        for i in range(index):
+        for _ in range(index):
             current = current.next
         current.data = data
 
@@ -69,7 +67,7 @@ class DoublyLinkedList:
             self.head = self.head.next
         else:
             current = self.head
-            for i in range(index - 1):
+            for _ in range(index - 1):
                 current = current.next
             current.next = current.next.next
             if current.next is None:
@@ -80,11 +78,10 @@ class DoublyLinkedList:
         new_node = Node(data)
         if self.head is None:
             self.head = new_node
-            self.tail = new_node
         else:
             self.tail.next = new_node
             new_node.prev = self.tail
-            self.tail = new_node
+        self.tail = new_node
         self.size += 1
 
     def append_at_location(self, data, index):
@@ -93,7 +90,7 @@ class DoublyLinkedList:
             new_node.next = self.head
         else:
             current = self.head
-            for i in range(index - 1):
+            for _ in range(index - 1):
                 current = current.next
             new_node.next = current.next
             current.next.prev = new_node
@@ -117,7 +114,7 @@ class DoublyLinkedList:
             self.head = new_node
         else:
             current = self.head
-            for i in range(index - 1):
+            for _ in range(index - 1):
                 current = current.next
             new_node.next = current.next
             current.next.prev = new_node

@@ -26,9 +26,7 @@ def deterministic_select(arr, start, end, k):
 
 def median_of_medians(elems):
     sublists = [elems[i:i + 5] for i in range(0, len(elems), 5)]
-    medians = []
-    for sublist in sublists:
-        medians.append(sorted(sublist)[len(sublist) // 2])
+    medians = [sorted(sublist)[len(sublist) // 2] for sublist in sublists]
     if len(medians) <= 5:
         return sorted(medians)[len(medians) // 2]
     else:

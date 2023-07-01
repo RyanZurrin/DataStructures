@@ -8,10 +8,9 @@ def brute_force(text, pattern):
     """
     l1 = len(text)
     l2 = len(pattern)
-    i = 0
     j = 0
     flag = False
-    while i < l1:
+    for i in range(l1):
         j = 0
         count = 0
         while j < l2:
@@ -20,7 +19,6 @@ def brute_force(text, pattern):
             j += 1
         if count == l2:
             return i
-        i += 1
     if not flag:
         return -1
 
@@ -86,8 +84,8 @@ def KMP_Matcher(text, pattern):  # KMP matcher function
     m = len(text)
     n = len(pattern)
     flag = False
-    text = '-' + text  # append dummy character to make it 1-based indexing
-    pattern = '-' + pattern  # append dummy character to the pattern also
+    text = f'-{text}'
+    pattern = f'-{pattern}'
     prefix_fun = pfun(pattern)  # generate prefix function for the pattern
     q = 0
     for i in range(1, m + 1):

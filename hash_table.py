@@ -10,7 +10,7 @@ class HashItem:
 class HashTable:
     def __init__(self):
         self.size = 256
-        self.slots = [None for i in range(self.size)]
+        self.slots = [None for _ in range(self.size)]
         self.count = 0
         self.MAX_LOAD_FACTOR = 0.65
         self.prime_num = 5
@@ -40,16 +40,14 @@ class HashTable:
         hash_value = self._hash(key)
         if self.slots[hash_value] is None:
             return False
-        else:
-            if self.slots[hash_value].key == key:
+        if self.slots[hash_value].key == key:
+            return True
+        next_slot = self.slots[hash_value].next
+        while next_slot is not None:
+            if next_slot.key == key:
                 return True
-            else:
-                next_slot = self.slots[hash_value].next
-                while next_slot is not None:
-                    if next_slot.key == key:
-                        return True
-                    next_slot = next_slot.next
-                return False
+            next_slot = next_slot.next
+        return False
 
     def __len__(self):
         return self.count
@@ -58,20 +56,19 @@ class HashTable:
         hash_value = self._hash(key)
         if self.slots[hash_value] is None:
             raise KeyError
+        if self.slots[hash_value].key == key:
+            self.slots[hash_value] = self.slots[hash_value].next
+            self.count -= 1
         else:
-            if self.slots[hash_value].key == key:
-                self.slots[hash_value] = self.slots[hash_value].next
-                self.count -= 1
+            next_slot = self.slots[hash_value].next
+            while next_slot is not None:
+                if next_slot.key == key:
+                    self.slots[hash_value].next = next_slot.next
+                    self.count -= 1
+                    break
+                next_slot = next_slot.next
             else:
-                next_slot = self.slots[hash_value].next
-                while next_slot is not None:
-                    if next_slot.key == key:
-                        self.slots[hash_value].next = next_slot.next
-                        self.count -= 1
-                        break
-                    next_slot = next_slot.next
-                else:
-                    raise KeyError
+                raise KeyError
 
     def __iter__(self):
         for slot in self.slots:
@@ -85,20 +82,11 @@ class HashTable:
         return str(self.slots)
 
     def _hash(self, key):
-        mult = 1
-        hash_val = 0
-        for char in key:
-            hash_val += ord(char) * mult
-            mult += 1
+        hash_val = sum(ord(char) * mult for mult, char in enumerate(key, start=1))
         return hash_val % self.size
 
     def _hash2(self, key):
-        mult = 1
-        hash_val = 0
-        for char in key:
-            hash_val += ord(char) * mult
-            mult += 1
-        return hash_val
+        return sum(ord(char) * mult for mult, char in enumerate(key, start=1))
 
     def get_quadratic(self, key):
         hash_value = self._hash(key)
@@ -166,7 +154,7 @@ class HashTable:
     def resize(self):
         new_hash_table = HashTable()
         new_hash_table.size = self.size * 2
-        new_hash_table.slots = [None for i in range(new_hash_table.size)]
+        new_hash_table.slots = [None for _ in range(new_hash_table.size)]
 
         for i in range(self.size):
             if self.slots[i] is not None:

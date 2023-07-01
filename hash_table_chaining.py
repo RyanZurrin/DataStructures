@@ -16,10 +16,10 @@ class SLL:
         new_node = HashNode(key, value)
         if self.head is None:
             self.head = new_node
-            self.tail = new_node
         else:
             self.tail.next = new_node
-            self.tail = new_node
+
+        self.tail = new_node
 
     def traverse(self):
         current = self.head
@@ -40,17 +40,13 @@ class SLL:
 class HashTableChaining:
     def __init__(self):
         self.size = 6
-        self.slots = [None for i in range(self.size)]
+        self.slots = [None for _ in range(self.size)]
         self.count = 0
         for x in range(self.size):
             self.slots[x] = SLL()
 
     def _hash(self, key):
-        mult = 1
-        hash_val = 0
-        for char in key:
-            hash_val += ord(char) * mult
-            mult += 1
+        hash_val = sum(ord(char) * mult for mult, char in enumerate(key, start=1))
         return hash_val % self.size
 
     def put(self, key, value):

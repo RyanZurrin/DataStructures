@@ -39,22 +39,16 @@ class Stack:
         node = Node(data)
         if self.top:
             node.next = self.top
-            self.top = node
-        else:
-            self.top = node
+        self.top = node
         self.size += 1
 
     def pop(self):
-        if self.top:
-            data = self.top.data
-            self.size -= 1
-            if self.top.next:
-                self.top = self.top.next
-            else:
-                self.top = None
-            return data
-        else:
+        if not self.top:
             raise Exception('Stack is empty')
+        data = self.top.data
+        self.size -= 1
+        self.top = self.top.next if self.top.next else None
+        return data
 
     def peek(self):
         if self.top:
@@ -74,15 +68,15 @@ def check_brackets(expression):
             brackets_stack.push(char)
         if char in (']', '}', ')'):
             last = brackets_stack.pop()
-            if last == '[' and char == ']':
-                continue
-            elif last == '{' and char == '}':
-                continue
-            elif last == '(' and char == ')':
+            if (
+                last == '['
+                and char == ']'
+                or last == '{'
+                and char == '}'
+                or last == '('
+                and char == ')'
+            ):
                 continue
             else:
                 return False
-        if brackets_stack.size > 0:
-            return False
-        else:
-            return True
+        return brackets_stack.size <= 0

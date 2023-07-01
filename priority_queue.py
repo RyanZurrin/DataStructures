@@ -32,4 +32,4 @@ class PriorityQueue:
 
     def print_queue(self):
         for node in self.queue:
-            print(str(node.data) + " - " + str(node.priority))
+            print(f"{str(node.data)} - {str(node.priority)}")

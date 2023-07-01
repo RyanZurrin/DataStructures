@@ -33,10 +33,10 @@ class Graph:
 
     def print_graph(self):
         for i in range(self.V):
-            print("Adjacency list of vertex {}\n head".format(i), end="")
+            print(f"Adjacency list of vertex {i}\n head", end="")
             temp = self.graph[i]
             while temp:
-                print(" -> {}".format(temp.data), end="")
+                print(f" -> {temp.data}", end="")
                 temp = temp.next
             print(" \n")
 
@@ -122,10 +122,7 @@ class Graph:
         for i in range(self.V):
             if not visited[i]:
                 self._is_connected_util(i, visited)
-        for i in range(self.V):
-            if not visited[i]:
-                return False
-        return True
+        return all(visited[i] for i in range(self.V))
 
     def _is_connected_util(self, s, visited):
         visited[s] = True
@@ -173,9 +170,9 @@ class Graph:
                         heapq.heappush(pq, (dist[temp.data], temp.data))
                 temp = temp.next
         # print the distances from source to all other vertices
-        print("Vertex\t Distance from vertex {}".format(s))
+        print(f"Vertex\t Distance from vertex {s}")
         for i in range(self.V):
-            print("{}\t\t->\t\t{}".format(i, dist[i]))
+            print(f"{i}\t\t->\t\t{dist[i]}")
 
         return dist
 
@@ -183,13 +180,12 @@ class Graph:
         visited = [False] * self.V
         dist = [float("inf")] * self.V
         dist[s] = 0
-        for i in range(self.V - 1):
+        for _ in range(self.V - 1):
             for u in range(self.V):
                 if not visited[u]:
                     temp = self.graph[u]
                     while temp:
-                        if dist[temp.data] > dist[u] + temp.weight:
-                            dist[temp.data] = dist[u] + temp.weight
+                        dist[temp.data] = min(dist[temp.data], dist[u] + temp.weight)
                         temp = temp.next
             visited = [False] * self.V
         for u in range(self.V):
@@ -201,7 +197,7 @@ class Graph:
         return True
 
     def floyd_warshall(self):
-        dist = [[float("inf")] * self.V for i in range(self.V)]
+        dist = [[float("inf")] * self.V for _ in range(self.V)]
         for i in range(self.V):
             dist[i][i] = 0
             temp = self.graph[i]
@@ -256,12 +252,11 @@ class Graph:
         visited1[s] = True
         temp = self.graph[s]
         while temp:
-            if not visited2[temp.data]:
-                if not self._is_isomorphic_util(temp.data, visited1, visited2,
-                                                g):
-                    return False
-            else:
+            if visited2[temp.data]:
                 if g.graph[temp.data].data != temp.data:
                     return False
+            elif not self._is_isomorphic_util(temp.data, visited1, visited2,
+                                                g):
+                return False
             temp = temp.next
         return True

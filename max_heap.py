@@ -43,7 +43,4 @@ class MaxHeap:
                 self.__floatDown(right)
 
     def heap_sort(self):
-        sorted_list = []
-        for i in range(self.size):
-            sorted_list.append(self.extractMax())
-        return sorted_list
+        return [self.extractMax() for _ in range(self.size)]
